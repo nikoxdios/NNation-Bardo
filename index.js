@@ -17,6 +17,12 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => console.log('Conexión a MongoDB exitosa'))
 .catch((err) => console.error('Error al conectar con MongoDB:', err));
 
+// Esperar a que Mongoose esté totalmente conectado
+mongoose.connection.once('connected', () => {
+  console.log('✅ MongoDB está listo, iniciando tareas...');
+  require('./tasks/checkLive')(client);
+});
+
 // Cuando el bot esté listo
 client.once('ready', () => {
   console.log(`Bot conectado como ${client.user.tag}`);
@@ -105,4 +111,5 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
 
