@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Cuando el bot esté listo
 client.once('ready', () => {
   console.log(`Bot conectado como ${client.user.tag}`);
-  require('./tasks/checkLive')(client); // inicia el verificador
+  //require('./tasks/checkLive')(client); // inicia el verificador
 });
 
 
@@ -105,3 +105,4 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
