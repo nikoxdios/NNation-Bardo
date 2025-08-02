@@ -2,19 +2,6 @@ const axios = require('axios');
 const AnnounceChannel = require('../schemas/AnnounceChannel');
 const { getTwitchToken } = require('../utils/twitchTokenManager');
 
-// Conexión MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  dbName: 'Bard',
-})
-.then(() => console.log('Conexión a MongoDB exitosa'))
-.catch((err) => console.error('Error al conectar con MongoDB:', err));
-
-// Esperar a que Mongoose esté totalmente conectado
-mongoose.connection.once('connected', () => {
-  console.log('✅ MongoDB está listo, iniciando tareas...');
-  require('./tasks/checkLive')(client);
-});
-
 module.exports = (client) => {
   setInterval(async () => {
     const registros = await AnnounceChannel.find({});
@@ -100,4 +87,5 @@ module.exports = (client) => {
     }
   }, 60 * 1000); // cada minuto
 };
+
 
